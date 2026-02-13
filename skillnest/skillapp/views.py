@@ -96,10 +96,41 @@ def logout_user(request):
     return redirect('home')
 
 def init_admin(request):
+    from django.conf import settings
     out = StringIO()
+    
+    db_engine = settings.DATABASES['default']['ENGINE']
+    db_url_raw = os.getenv('DATABASE_URL', '')
+    
+    diagnostics = [
+        f"Active Database Engine: {db_engine}",
+        f"DATABASE_URL detected: {'Yes' if db_url_raw else 'No'}",
+    ]
+    
+    if db_url_raw:
+        # Masked URL for safety
+        masked_url = db_url_raw[:10] + "..." + db_url_raw[-5:] if len(db_url_raw) > 15 else "***"
+        diagnostics.append(f"DATABASE_URL starts with: {db_url_raw[:10]}")
+        
+        if db_url_raw.startswith('psql'):
+            diagnostics.append("WARNING: DATABASE_URL starts with 'psql'. Remove the 'psql' word and quotes from Vercel settings.")
+        if db_url_raw.startswith("'") or db_url_raw.startswith('"'):
+            diagnostics.append("WARNING: DATABASE_URL contains quotes. Remove all single/double quotes from Vercel settings.")
+
     try:
         call_command('migrate', interactive=False, stdout=out)
         call_command('create_admin', stdout=out)
-        return HttpResponse(f"Admin Initialization Complete!<br><pre>{out.getvalue()}</pre>")
+        status = "Admin Initialization Complete!"
     except Exception as e:
-        return HttpResponse(f"Error during initialization: {e}<br><pre>{out.getvalue()}</pre>")
+        status = f"Error: {e}"
+        if 'readonly' in str(e).lower():
+            diagnostics.append("CRITICAL: Attempting to write to a readonly database. This confirms you are using SQLite instead of PostgreSQL on Vercel.")
+
+    response_html = f"<h2>{status}</h2>"
+    response_html += "<h3>Diagnostics:</h3><ul>"
+    for d in diagnostics:
+        response_html += f"<li>{d}</li>"
+    response_html += "</ul><h3>Logs:</h3><pre>" + out.getvalue() + "</pre>"
+    response_html += "<p><b>Next Step:</b> If you see SQLite/Readonly error, please fix your DATABASE_URL in Vercel settings and redeploy.</p>"
+    
+    return HttpResponse(response_html)
