@@ -93,11 +93,23 @@ DATABASES = {
 
 database_url = os.getenv('DATABASE_URL')
 if database_url and database_url.strip():
+    # RESILIENT PARSING: Cleanup malformed URLs (e.g., from 'psql' commands)
+    cleaned_url = database_url.strip()
+    if cleaned_url.startswith('psql '):
+        cleaned_url = cleaned_url[5:].strip()
+    cleaned_url = cleaned_url.strip("'").strip('"').strip()
+    
     try:
-        DATABASES['default'] = dj_database_url.parse(database_url, conn_max_age=600)
+        DATABASES['default'] = dj_database_url.parse(cleaned_url, conn_max_age=600)
+        # Ensure it's not empty/invalid
+        if not DATABASES['default'].get('ENGINE'):
+             raise ValueError("Invalid engine")
     except Exception:
-        # Fallback to sqlite if DATABASE_URL is malformed
-        pass
+        # Final fallback to standard dictionary if parsing fails
+        DATABASES['default'] = {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
 
 
 # Password validation
