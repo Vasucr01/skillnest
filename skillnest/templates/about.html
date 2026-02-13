@@ -1,0 +1,64 @@
+{% extends "base.html" %} {% block title %}About – SkillNest{% endblock %} {%
+block content %}
+<section class="py-20 bg-white">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-16">
+      <h1 class="text-4xl md:text-5xl font-bold heading mb-6 text-indigo-900">About SkillNest</h1>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+        Empowering students to share knowledge, build skills, and grow together.
+      </p>
+    </div>
+
+    <!-- Mission -->
+    <div class="grid md:grid-cols-2 gap-12 items-center mb-24">
+      <div>
+        <h2 class="text-3xl font-bold heading mb-4 text-gray-900">Our Mission</h2>
+        <p class="text-gray-600 leading-relaxed mb-6">
+          SkillNest was born from a simple idea: everyone has something to teach, and everyone has something to learn. 
+          We believe that peer-to-peer learning is one of the most effective ways to master new skills.
+        </p>
+        <p class="text-gray-600 leading-relaxed">
+          Our platform connects students from different disciplines, fostering a community of collaboration 
+          and mutual growth. Whether you're a coding wizard, a design guru, or a math whiz, your skills take center stage here.
+        </p>
+      </div>
+      <div class="bg-indigo-50 rounded-2xl p-8 h-80 flex items-center justify-center">
+        <span class="text-6xl">🚀</span>
+      </div>
+    </div>
+
+    <!-- Values -->
+    <div class="mb-24">
+      <h2 class="text-3xl font-bold heading mb-12 text-center text-gray-900">Core Values</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-gray-50 p-8 rounded-xl hover:shadow-lg transition">
+          <div class="text-4xl mb-4">🤝</div>
+          <h3 class="text-xl font-bold mb-3">Community First</h3>
+          <p class="text-gray-600">We build bridges between students to create a supportive network.</p>
+        </div>
+        <div class="bg-gray-50 p-8 rounded-xl hover:shadow-lg transition">
+          <div class="text-4xl mb-4">💡</div>
+          <h3 class="text-xl font-bold mb-3">Knowledge Sharing</h3>
+          <p class="text-gray-600">Free flow of information helps everyone level up faster.</p>
+        </div>
+        <div class="bg-gray-50 p-8 rounded-xl hover:shadow-lg transition">
+          <div class="text-4xl mb-4">🌱</div>
+          <h3 class="text-xl font-bold mb-3">Continuous Growth</h3>
+          <p class="text-gray-600">Learning is a journey, not a destination.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="text-center bg-indigo-600 rounded-3xl p-12 text-white">
+      <h2 class="text-3xl font-bold heading mb-6">Ready to join the movement?</h2>
+      <p class="text-indigo-100 text-lg mb-8 max-w-2xl mx-auto">
+        Be part of a growing community of learners and teachers.
+      </p>
+      <a href="{% url 'signup' %}" class="inline-block bg-white text-indigo-600 font-bold py-3 px-8 rounded-lg hover:bg-gray-100 transition">
+        Get Started Today
+      </a>
+    </div>
+
+  </div>
+</section>

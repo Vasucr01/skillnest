@@ -1,0 +1,104 @@
+from django.shortcuts import render
+from django.shortcuts import HttpResponse
+# Create your views here.
+def index(request):
+    return render(request,"index.html")
+from .models import Contact
+
+def contact(request):
+    if request.method=="POST":
+        name=request.POST.get('name')
+        email=request.POST.get('email')
+        message=request.POST.get('message')
+        contact=Contact(name=name,email=email,message=message)
+        contact.save()
+        return render(request,"contact.html",{'message':'Message Sent Successfully'})
+    return render(request,"contact.html")
+def about(request):
+    return render(request,"about.html")
+from django.contrib.auth import authenticate, login as auth_login
+
+def login(request):
+    if request.method=="POST":
+        username=request.POST.get('username')
+        pass1=request.POST.get('password')
+        user=authenticate(request,username=username,password=pass1)
+        if user is not None:
+            auth_login(request,user)
+            return redirect('home')
+        else:
+            messages.error(request,"Invalid Credentials")
+            return redirect('login')
+    return render(request,"login.html")
+
+from django.contrib.auth.models import User
+from django.shortcuts import redirect
+from django.contrib import messages
+
+from .models import Profile
+from django.contrib.auth import logout 
+
+def signup(request):
+    if request.method=="POST":
+        username=request.POST.get('username')
+        email=request.POST.get('email')
+        pass1=request.POST.get('password')
+        pass2=request.POST.get('confirm_password')
+
+        if pass1!=pass2:
+            messages.error(request,"Passwords do not match")
+            return redirect('signup')
+        
+        if User.objects.filter(username=username).exists():
+            messages.error(request,"Username already taken")
+            return redirect('signup')
+
+        if User.objects.filter(email=email).exists():
+            messages.error(request,"Email already registered")
+            return redirect('signup')
+
+        myuser=User.objects.create_user(username,email,pass1)
+        myuser.save()
+        
+        # Create Profile
+        profile=Profile(user=myuser, bio="Student at SkillNest")
+        profile.save()
+
+        messages.success(request,"Your Account has been created successfully")
+        return redirect('login')
+
+    return render(request,"signup.html")
+
+def students(request):
+    profiles = Profile.objects.all()
+    return render(request,"students.html",{'profiles':profiles})
+
+from django.contrib.auth.decorators import login_required
+
+@login_required(login_url='login')
+def profile(request):
+    profile, created = Profile.objects.get_or_create(user=request.user)
+    if request.method == "POST":
+        profile.branch = request.POST.get('branch')
+        profile.year = request.POST.get('year')
+        profile.bio = request.POST.get('bio')
+        
+        if 'image' in request.FILES:
+            profile.image = request.FILES['image']
+            
+        profile.save()
+        messages.success(request, "Profile Updated Successfully")
+        return redirect('profile')
+    return render(request, "profile.html", {'profile': profile})
+
+def logout_user(request):
+    logout(request)
+    messages.success(request,"Logged Out Successfully")
+    return redirect('home')
+
+
+
+
+
+
+

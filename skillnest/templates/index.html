@@ -1,0 +1,196 @@
+{% extends "base.html" %} {% block content %}
+
+<!-- HERO -->
+<section
+  class="pt-10 pb-20 bg-gradient-to-br from-indigo-600 to-purple-600 text-white"
+>
+  <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+    <div>
+      <h1 class="text-5xl md:text-6xl font-bold heading leading-tight mb-6">
+        SkillNest
+      </h1>
+      <p class="text-xl opacity-95 mb-3">Learn. Teach. Grow.</p>
+      <p class="text-lg opacity-85 mb-8 max-w-xl">
+        A peer-to-peer learning platform where college students share skills,
+        solve doubts, and grow together beyond classrooms.
+      </p>
+
+      <div class="flex flex-wrap gap-4">
+        <a
+          href="#"
+          class="px-8 py-3 bg-white text-indigo-600 font-semibold rounded-lg hover:bg-gray-100"
+        >
+          Get Started
+        </a>
+
+        <a
+          href="#how"
+          class="px-8 py-3 border border-white rounded-lg hover:bg-white/10"
+        >
+          How it works
+        </a>
+      </div>
+
+      <div class="flex flex-wrap gap-3 mt-8">
+        <span
+          class="px-4 py-2 rounded-full bg-white/15 border border-white/20 text-sm"
+          >✅ Students as mentors</span
+        >
+        <span
+          class="px-4 py-2 rounded-full bg-white/15 border border-white/20 text-sm"
+          >🏅 Skill showcase</span
+        >
+        <span
+          class="px-4 py-2 rounded-full bg-white/15 border border-white/20 text-sm"
+          >💬 Doubt solving</span
+        >
+      </div>
+    </div>
+
+    <div class="hidden md:block">
+      <div
+        class="bg-white/10 backdrop-blur rounded-2xl p-8 border border-white/20"
+      >
+        <h3 class="text-2xl font-semibold heading mb-6">What you can do</h3>
+        <div class="space-y-4">
+          <div class="bg-white/10 rounded-xl p-4 flex gap-3 items-start">
+            <span class="text-2xl">🎯</span>
+            <div>
+              <p class="font-semibold">Teach what you know</p>
+              <p class="text-white/80 text-sm">
+                Help juniors & peers with topics you’re good at.
+              </p>
+            </div>
+          </div>
+          <div class="bg-white/10 rounded-xl p-4 flex gap-3 items-start">
+            <span class="text-2xl">❓</span>
+            <div>
+              <p class="font-semibold">Ask doubts anytime</p>
+              <p class="text-white/80 text-sm">
+                Get quick help from students who already learned it.
+              </p>
+            </div>
+          </div>
+          <div class="bg-white/10 rounded-xl p-4 flex gap-3 items-start">
+            <span class="text-2xl">📄</span>
+            <div>
+              <p class="font-semibold">Show certificates</p>
+              <p class="text-white/80 text-sm">
+                Build a skill profile that looks professional.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="py-12 bg-white border-b">
+  <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-6 text-center">
+    <div class="rounded-2xl p-8 bg-indigo-50 border border-indigo-100">
+      <div class="text-4xl font-bold text-indigo-600 heading">1000+</div>
+      <p class="text-gray-600 font-medium mt-1">Active Students</p>
+    </div>
+    <div class="rounded-2xl p-8 bg-purple-50 border border-purple-100">
+      <div class="text-4xl font-bold text-purple-600 heading">500+</div>
+      <p class="text-gray-600 font-medium mt-1">Skills Shared</p>
+    </div>
+    <div class="rounded-2xl p-8 bg-pink-50 border border-pink-100">
+      <div class="text-4xl font-bold text-pink-600 heading">2000+</div>
+      <p class="text-gray-600 font-medium mt-1">Doubts Solved</p>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features" class="py-20">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-12">
+      <h2 class="text-4xl font-bold heading">Why SkillNest?</h2>
+      <p class="text-gray-600 mt-3 text-lg">
+        Everything you need for peer learning in one place.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="bg-white rounded-2xl p-8 shadow hover:shadow-lg transition">
+        <div class="text-3xl mb-4">🎓</div>
+        <h3 class="text-xl font-semibold heading mb-2">Students as Teachers</h3>
+        <p class="text-gray-600">Everyone can teach and everyone can learn.</p>
+      </div>
+
+      <div class="bg-white rounded-2xl p-8 shadow hover:shadow-lg transition">
+        <div class="text-3xl mb-4">❓</div>
+        <h3 class="text-xl font-semibold heading mb-2">Doubt Solving Feed</h3>
+        <p class="text-gray-600">
+          Post doubts, get answers, connect with peers.
+        </p>
+      </div>
+
+      <div class="bg-white rounded-2xl p-8 shadow hover:shadow-lg transition">
+        <div class="text-3xl mb-4">🏅</div>
+        <h3 class="text-xl font-semibold heading mb-2">Skill Profile</h3>
+        <p class="text-gray-600">
+          Showcase skills and certificates in one place.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how" class="py-20 bg-gray-100">
+  <div class="max-w-7xl mx-auto px-6 text-center">
+    <h2 class="text-4xl font-bold heading mb-10">How it works</h2>
+
+    <div class="grid md:grid-cols-3 gap-10">
+      <div class="bg-white rounded-2xl p-8 shadow">
+        <div class="text-4xl mb-4">1️⃣</div>
+        <h3 class="text-xl font-semibold heading mb-2">Create profile</h3>
+        <p class="text-gray-600">Add skills, bio, and certificates.</p>
+      </div>
+      <div class="bg-white rounded-2xl p-8 shadow">
+        <div class="text-4xl mb-4">2️⃣</div>
+        <h3 class="text-xl font-semibold heading mb-2">Ask / Teach</h3>
+        <p class="text-gray-600">Post doubts or help others.</p>
+      </div>
+      <div class="bg-white rounded-2xl p-8 shadow">
+        <div class="text-4xl mb-4">3️⃣</div>
+        <h3 class="text-xl font-semibold heading mb-2">Grow together</h3>
+        <p class="text-gray-600">Learn, teach, build connections.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section
+  class="py-20 bg-gradient-to-br from-indigo-600 to-purple-600 text-white"
+>
+  <div class="max-w-4xl mx-auto px-6 text-center">
+    <h2 class="text-4xl md:text-5xl font-bold heading mb-5">
+      Ready to join SkillNest?
+    </h2>
+    <p class="text-lg opacity-90 mb-8">
+      Start learning, teaching, and growing with your college community.
+    </p>
+    <div class="flex justify-center gap-4 flex-wrap">
+      <a
+        href="#"
+        class="px-10 py-4 bg-white text-indigo-600 font-semibold rounded-xl hover:bg-gray-100"
+      >
+        Create Account
+      </a>
+      <a
+        href="{% url 'login' %}"
+        class="px-10 py-4 border border-white rounded-xl hover:bg-white/10"
+      >
+        Login
+      </a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
