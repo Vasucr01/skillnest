@@ -1,9 +1,17 @@
 from django.shortcuts import render
 from django.shortcuts import HttpResponse
-# Create your views here.
+from django.contrib.auth import authenticate, login as auth_login, logout
+from django.contrib.auth.models import User
+from django.shortcuts import redirect
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from .models import Contact, Profile
+from django.core.management import call_command
+from io import StringIO
+import os
+
 def index(request):
     return render(request,"index.html")
-from .models import Contact
 
 def contact(request):
     if request.method=="POST":
@@ -14,9 +22,9 @@ def contact(request):
         contact.save()
         return render(request,"contact.html",{'message':'Message Sent Successfully'})
     return render(request,"contact.html")
+
 def about(request):
     return render(request,"about.html")
-from django.contrib.auth import authenticate, login as auth_login
 
 def login(request):
     if request.method=="POST":
@@ -30,13 +38,6 @@ def login(request):
             messages.error(request,"Invalid Credentials")
             return redirect('login')
     return render(request,"login.html")
-
-from django.contrib.auth.models import User
-from django.shortcuts import redirect
-from django.contrib import messages
-
-from .models import Profile
-from django.contrib.auth import logout 
 
 def signup(request):
     if request.method=="POST":
@@ -73,8 +74,6 @@ def students(request):
     profiles = Profile.objects.all()
     return render(request,"students.html",{'profiles':profiles})
 
-from django.contrib.auth.decorators import login_required
-
 @login_required(login_url='login')
 def profile(request):
     profile, created = Profile.objects.get_or_create(user=request.user)
@@ -96,9 +95,11 @@ def logout_user(request):
     messages.success(request,"Logged Out Successfully")
     return redirect('home')
 
-
-
-
-
-
-
+def init_admin(request):
+    out = StringIO()
+    try:
+        call_command('migrate', interactive=False, stdout=out)
+        call_command('create_admin', stdout=out)
+        return HttpResponse(f"Admin Initialization Complete!<br><pre>{out.getvalue()}</pre>")
+    except Exception as e:
+        return HttpResponse(f"Error during initialization: {e}<br><pre>{out.getvalue()}</pre>")
